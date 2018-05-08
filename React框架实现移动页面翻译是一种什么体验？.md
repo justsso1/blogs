@@ -4,15 +4,15 @@
 ## 效果
 
 
-![手机上的翻译图片](C:\artical-imgs\react移动端翻译\fanyi.jpg)
-![](C:/artical-imgs/react移动端翻译/fanyi.jpg)
+
+![](./imgs/react移动端翻译/fanyi.jpg)
 
 
 ## 事情是这样的...
 我前端是做内容展示，后台将Html格式的内容传递到前端，前端原生元素的dangerouslySetInnerHTML 属性去解析html内容，就可以使用react框架渲染html了
 
 
-![](C:/artical-imgs/react移动端翻译/dangerourslySetInnerHTML.png)
+![](./imgs/react移动端翻译/dangerourslySetInnerHTML.png)
 
 仔细看，这个属性用的是{{  }}2个括号而不是1个括号。原因是：第一{}代表jsx语法开始，第二个是代表dangerouslySetInnerHTML接收的是一个对象键值对。它接收的内容是html的，很容易收到XSS攻击，所以这个属性有了dangerous这个单词...
 
@@ -22,7 +22,7 @@
 后台传给我的一段一段的内容是这样的：
 
 
-![](C:/artical-imgs/react移动端翻译/后台返回一段内容.png)
+![](./imgs/react移动端翻译/后台返回一段内容.png)
 
 既然要提取出来做单词翻译，就得有能力去获取每一个单词，所以我的打算是，把内容提取出来，是一个英文单词就放进一个span标签中。但是这一步在哪里处理比较好呢，**我想了想，在页面渲染之前处理吧， 这样页面渲染的压力要减小，提高渲染速度**。所以我在前端接收到后端发送的数据之后，在存入store之前就先处理好。
 
@@ -130,7 +130,7 @@ var appSecret = 'GOPjZoiSnH592P31Qn6xoallHn3zUnSh';
 有了这个url之后，就可以请求了。返回的东西是：
 
 
-![](C:/artical-imgs/react移动端翻译/单词api返回内容.png)
+![](./imgs/react移动端翻译/单词api返回内容.png)
 
 播放单词的地方就是用 H5的audio 元素,src是 
 `http://dict.youdao.com/dictvoice?audio=${this.props.word.query}`
