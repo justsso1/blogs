@@ -55,3 +55,7 @@ None 不能理解为0
 
 
 字符串编码
+
+
+
+![lllllfjakf ](images/wxFansAdd/02_Relationship.png)
