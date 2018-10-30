@@ -13,3 +13,6 @@ https://blog.csdn.net/shuai7boy/article/details/53203339
 
 - （逻辑清晰）如何在 Ubuntu 上使用 pm2 和 Nginx 部署 Node.js 应用
 https://linux.cn/article-8494-1.html
+
+
+ nginx安装目录  /usr/local/nginx/sbin/nginx
