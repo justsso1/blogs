@@ -53,7 +53,6 @@ webpack-dev-server 为你提供了一个简单的 web 服务器，并且能够�
 HMR : 它允许在运行时更新各种模块，而无需进行完全刷新。
 HMR 不适用于生产环境，这意味着它应当只在开发环境使用。
 
-
 使用webpack-dev-server 和webpack 内置的 HMR 插件启用HRM功能。
 
 建议为每个环境编写彼此独立的 webpack 配置
