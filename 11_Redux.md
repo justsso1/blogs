@@ -40,7 +40,6 @@ const reducer = combineReducers({ visibilityFilter, todos })
 const store = createStore(reducer)
 ```
 **Learning Resources**
-
 `connect` function 
 
 Taking Advantage of `combineReducers`
