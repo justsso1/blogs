@@ -168,6 +168,21 @@ const $ = window.$;
 ```
 
 ### 增加Bootstrap
+`npm install --save reactstrap bootstrap@4`
+
+在`src/index.js `文件开头引入bootstrap css文件，和可选的bootstrap 主题
+
+`import 'bootstrap/dist/css/bootstrap.css';`
+
+在`src/App.js`文件活自定义文件中导入所需的reactstrap 组件
+
+`import { Button } from 'reactstrap';`
+
+
+### 增加Flow
+
+`npm install --save flow-bin`
+
 
 
 
