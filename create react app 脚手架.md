@@ -183,6 +183,8 @@ const $ = window.$;
 
 `npm install --save flow-bin`
 
+它是分析打包之后的包中各个模块的体积大小的
+
 
 
 
