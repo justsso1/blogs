@@ -9,4 +9,4 @@
   
 ### 博客
 
--[React diff算法](https://github.com/justsso/blogs/blob/master/articles/08_React%20Diff%E7%AE%97%E6%B3%95.md)
+- [React diff算法](https://github.com/justsso/blogs/blob/master/articles/08_React%20Diff%E7%AE%97%E6%B3%95.md)
