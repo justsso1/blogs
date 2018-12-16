@@ -72,3 +72,5 @@
   <p class="bg-dark text-white">深灰背景颜色。</p>
   <p class="bg-light text-dark">浅灰背景颜色。</p>
 ```
+
+## 信息提示框
