@@ -7,3 +7,5 @@
 ## 安装
 
 全局安装gulp, `npm install -g gulp`, 输入`gulp -v`,显示版本号则表示安装成功。
+
+## 自动化设置
