@@ -35,7 +35,7 @@ gulpfile中 exports的任务作为共有任务，可以使用gulp命令行运行
 > Private tasks
 内部使用的命令，通常用作`series()` 和  `parallel()`组合
 
-两种方法都接受任意数量的任务函数或组合操作。series()并且parallel()可以嵌套在自己内部或彼此嵌套到任何深度。
+`series`和`parallel`两种方法都接受任意数量的任务函数或组合操作。series()并且parallel()可以嵌套在自己内部或彼此嵌套到任何深度。
 
 series(),是同步任务，它包含的任务只能一个一个顺序的去执行。
 
@@ -86,3 +86,5 @@ gulp.task('clean-css', function () {
         .pipe(gulp.dest('build/css'))
 });
 ```
+
+最好看官网文档
