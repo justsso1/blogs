@@ -172,4 +172,7 @@ gulp.task('clean-css', function () {
 });
 ```
 
+
+写一个活动页的模版出来
+
 最好看官网文档
