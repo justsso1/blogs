@@ -71,3 +71,5 @@ const handleRouteChange = url => {
 
 Router.events.on('routeChangeStart', handleRouteChange)
 ```
+
+怎么加入脚本代码
