@@ -31,17 +31,17 @@ resolve.modules
 resolve.mainFiles
 resolve.resolveLoader...
 
-
 loader 应用顺序  是倒序来的。所有的 loader 按照前置 -> 行内 -> 普通 -> 后置的顺序执行
 
 webpack 4.0 中增加了mode 参数，它有两种值： production 和 development 
-
-
 
 ---
 
 *2018.10.15 22:12*
 
+开发时使用：
+webpack-dev-server
+HMR
 
 
 
