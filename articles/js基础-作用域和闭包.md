@@ -65,4 +65,88 @@ let 声明的变量不会有变量提升，在块作用域之外也不会被访�
 和 a = 2 当作两个单独的声明，第一个是编译阶段的任务，而第二个则是执行阶段的任务。
 
 ## 作用域闭包
-jfkl 
+
+闭包的概念：
+在声明时所在作用域之外调用该函数，就会产生闭包。
+副作用：保留一段作用域声明周期，垃圾回收机制不能回收，作用域一直存在。
+
+函数在它本身的词法作用域之外执行。
+
+// function foo(){
+//     var a  = 2;
+//     function bar() {
+//         console.log(a)
+//     }
+//     return bar;
+// }
+//
+// var baz = foo();
+// baz();
+
+
+//闭包的例子
+// function wait(message){
+//     setTimeout(function timer () {
+//         console.log(message)
+//     }, 1000)
+// }
+// wait('hello world');
+
+
+//for循环闭包的例子
+//1s，2s,3s,4s,5s后输出的都是6
+// for (var i = 1; i <= 5; i++) {
+// //     setTimeout(function timer() {
+// //         console.log(i)
+// //     }, 100)
+// // }
+
+//这样和上面的结果一样，虽然每一个for循环都创建了一个新的词法作用域出来
+// for (var i = 1; i <=5 ; i++) {
+//     (function () {
+//         setTimeout(function timer() {
+//             console.log(i)
+//         }, i*1000)
+//     })()
+// }
+
+
+//这样可以1 2 3 4 5依次输出
+//这样不仅创建了5个不同的词法作用域，还把不同循环中的i的值，传入到立即执行函数中
+// for (var i = 1; i <=5 ; i++) {
+//     (function (i) {
+//         setTimeout(function timer() {
+//             console.log(i)
+//         }, i*1000)
+//     })(i)
+// }
+
+
+//这样便不会每次手动创建一个作用域了
+//因为let有拦截作用域的作用
+// for (let i = 1; i <= 5; i++) {
+//     setTimeout(function timer() {
+//         console.log(i)
+//     }, i*1000)
+// }
+
+//模块
+function foo() {
+    var something = 'something';
+    var arr = [1,2,3];
+    function a() {
+        console.log(something)
+    }
+
+    function b() {
+        console.log(arr.join(','))
+    }
+    return {
+        a,
+        b
+    }
+}
+
+var Foo = foo();
+Foo.a();
+Foo.b();
