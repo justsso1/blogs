@@ -255,11 +255,12 @@ var obj = {
 // aseome 3
 
 ```
-4. new绑定
+
+4.new绑定
 
 并不存在构造函数，只是存在
 
-```
+```js
 function foo(a) {
     this.a = a;
 }
@@ -289,7 +290,7 @@ console.log(bar.a);
 //4。 最后的是默认绑定了，this是window或者undefined
 
 //--- 手动实现bind()函数，在一些古老的浏览器中没有Function.prototype没有bind函数
-
+```js
 function bind() {
     // console.log(typeof Function.prototype.bind);
     if (!Function.prototype.bind) {
@@ -320,6 +321,7 @@ function bind() {
 
 
 // bind(2);
+```
 
 console.log(Array.prototype);
 console.log(Number.prototype);
