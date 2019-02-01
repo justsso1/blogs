@@ -342,7 +342,6 @@ console.log(Function.prototype);
 简单基本类型有6中，string number boolean undefined null symbol,他们不是对象
 
 实际上，JavaScript 中有许多特殊的**对象子类型**，我们可以称之为复杂基本类型。
-
 **内置对象**
 
 String Number Boolean Object Function Array Data RegExp Error .在js
@@ -362,4 +361,3 @@ myObject.toString()
 从技术角度来说，函数永远不会“属于”一个对象。
 
 无论返回值是什么类型，每次访问对象，都叫做属性访问。
-
