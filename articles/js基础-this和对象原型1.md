@@ -2,7 +2,7 @@
 
 ## 认识this
 
-this是一个关键字，被自动定义在所有函数的作用域中。
+`this`是一个关键字，被自动定义在所有函数的作用域中。
 this提供了一种更优雅的方式来隐式“传递”一个对象引用，因此可以将API设计的更加简洁并且易于复用。
 
 函数可以自动引用合适的上下文对象是非常重要的。
@@ -98,6 +98,7 @@ console.log(foo.count);
 this 和作用域是不可以混合的,this既不指向自身，也不指向函数的词法作用域。this实际上是在函数被调用的时候发生的绑定，它指向什么完全取决于函数在哪里被调用。
 
 > this 是在运行时进行绑定的，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。
+
 
 > 当一个函数被调用时，会创建一个活动记录(有时候也称为执行上下文)。这个记录会包 含函数在哪里被调用(调用栈)、函数的调用方法、传入的参数等信息。this 就是记录的 其中一个属性，会在函数执行的过程中用到
 
@@ -203,9 +204,9 @@ console.log(obj1.obj2); //undefined
 obj1.obj2.foo();  //Cannot read property 'foo' of undefined
 ```
 
-2.
-- 隐式丢失
-// 隐式绑定中最容易出现的问题是，this丢失绑定的上下文对象.从而变成默认绑定，this指向window或者undefined
+2.隐式丢失
+
+隐式绑定中最容易出现的问题是，this丢失绑定的上下文对象.从而变成默认绑定，this指向window或者undefined.
 
 ```js
 function foo() {
@@ -227,17 +228,19 @@ doFun(obj.foo);
 //打印： 我是window的a
 ```
 
-3. 为了解决绑定丢失的问题，有了显示绑定， bind() ES5内置了，不过也可以手动实现这个函数
+1. 为了解决绑定丢失的问题，有了显示绑定， bind() ES5内置了，不过也可以手动实现这个函数
 
-//传入的参数，最终返回一个函数
+传入的参数，最终返回一个函数
 
-// 函数的[[原型]]可以解决这个问题。JavaScript提供的大部分函数以及我们创建的自定义函数，都可以实用apply()和call()函数。
-//他们的第一个参数是一个对象，他们会把这个对象绑定到this上面，接着在调用函数时，指定这个this.
-//从this的绑定角度，apply()和call()的效果是一样的，只是参与的传入不一样。
+函数的[[原型]]可以解决这个问题。JavaScript提供的大部分函数以及我们创建的自定义函数，都可以实用apply()和call()函数。
 
-//Es5提供了硬绑定的函数在Function.prototype中  bind()
+他们的第一个参数是一个对象，他们会把这个对象绑定到this上面，接着在调用函数时，指定这个this.
 
-//---3-2 api调用上下文
+从this的绑定角度，apply()和call()的效果是一样的，只是参与的传入不一样。
+
+Es5提供了硬绑定的函数在Function.prototype中 bind()
+
+3-2 api调用上下文
 
 ```js
 function foo(item) {
@@ -253,7 +256,6 @@ var obj = {
 // aseome 1
 // aseome 2
 // aseome 3
-
 ```
 
 4.new绑定
@@ -279,17 +281,18 @@ console.log(bar.a);
 
 ## this规则的优先级
 
-//1。 new绑定
+1。 new绑定
 
-//2。 显示绑定 call() apply()高于隐式绑定的，也就是隐式绑定一个上下文对象
+2。 显示绑定 call() apply()高于隐式绑定的，也就是隐式绑定一个上下文对象
 
-//硬绑定 bind() 会创建一个新的包装函数
+硬绑定 bind() 会创建一个新的包装函数
 
-//3。 隐式绑定
+3。 隐式绑定
 
-//4。 最后的是默认绑定了，this是window或者undefined
+4。 最后的是默认绑定了，this是window或者undefined
 
-//--- 手动实现bind()函数，在一些古老的浏览器中没有Function.prototype没有bind函数
+手动实现bind()函数，在一些古老的浏览器中没有Function.prototype没有bind函数
+
 ```js
 function bind() {
     // console.log(typeof Function.prototype.bind);
