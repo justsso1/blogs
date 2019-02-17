@@ -173,4 +173,10 @@ Google V8 引擎使用 C++ 代码编写，实现了 ECMAScript 规范的第五�
 
 ### 克服单线程编程的缺点 —————异步回调
 
+#### 解析事件循环
 
+我们先从一个奇怪的说法谈起 —— 尽管 JavaScript 允许异步的代码(就像是我们刚刚说的 setTimeout) ，但直到 ES6，JavaScript 自身从未有过任何关于异步的直接概念。JavaScript 引擎只会在任意时刻执行一个程序。
+
+### Promise
+
+### async await
