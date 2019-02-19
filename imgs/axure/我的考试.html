@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://127.0.0.1:32767/start.html#p=%E6%88%91%E7%9A%84%E8%80%83%E8%AF%95&g=1 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>我的考试</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link type="text/css" href="./我的考试_files/reset.css" rel="Stylesheet">
+    <link type="text/css" href="./我的考试_files/default.css" rel="Stylesheet">
+    <!--<link href='https://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>-->
+
+    <script type="text/javascript">
+        PREVIEW_INFO = {};
+</script>
+<script type="text/javascript">
+        if (location.href.toString().indexOf('file://localhost/') == 0) {
+            location.href = location.href.toString().replace('file://localhost/', 'file:///');
+        }
+    </script>
+
+    <!-- 8.0.0.3382 -->
+<script src="./我的考试_files/jquery-1.7.1.min.js"></script>
+<script src="./我的考试_files/startPre.js"></script>
+<script src="./我的考试_files/document.js"></script>
+
+    <style type="text/css">
+
+#outerContainer {
+	width:1000px;
+	height:1500px;
+}
+
+.vsplitbar {
+    width: 3px;
+    /*background: #B9B9B9;*/
+    border-right: 1px solid #8f949a;
+}
+
+.vsplitbar:hover, .vsplitbar.active {
+    background: #8f949a;
+}
+
+#rightPanel {
+    background-color: White;
+}
+
+/*#leftPanel {
+    min-width: 120px;
+}*/
+
+.splitterMask {
+   position:absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   background-image: url(resources/images/transparent.gif);
+   z-index: 20000;
+}
+
+    </style>
+    <script type="text/javascript" language="JavaScript"><!--
+        var SITEMAP_COLLAPSE_VAR_NAME = 'c';
+        var PLUGIN_VAR_NAME = 'g';
+        var FOOTNOTES_VAR_NAME = 'fn';
+        var ADAPTIVE_VIEW_VAR_NAME = 'view';
+        var lastLeftPanelWidth = 295;
+        var toolBarOnly = true;
+
+        // isolate scope
+        (function() {
+            setUpController();
+            
+            var configuration = $axure.document.configuration;
+            var _settings = {};
+            _settings.projectId = configuration.prototypeId;
+            _settings.isAxshare = configuration.isAxshare;
+            _settings.loadFeedbackPlugin = configuration.loadFeedbackPlugin;
+            var cHash = getHashStringVar(SITEMAP_COLLAPSE_VAR_NAME);
+            _settings.startCollapsed = cHash == "1";
+            if(cHash == "2") closePlayer();
+            var gHash = getHashStringVar(PLUGIN_VAR_NAME);
+            if(gHash == "") gHash = 1;
+            _settings.startPluginGid = gHash;
+
+            $axure.player.settings = _settings;
+
+            $(window).bind('load', function() {
+                if(CHROME_5_LOCAL && !$('body').attr('pluginDetected')) {
+                    window.location = 'resources/chrome/chrome.html';
+                }
+            });
+
+            $(document).ready(function() {
+                $axure.page.bind('load.start', mainFrame_onload);
+                $axure.messageCenter.addMessageListener(messageCenter_message);
+
+                $(document).on('pluginShown', function (event, data) {
+                    setVarInCurrentUrlHash('g', data ? data : '');
+                });
+
+                $(document).on('pluginCreated', function(event, data) {
+                    if($axure.player.settings.startPluginGid == data) {
+                        $axure.player.showPlugin(data);
+                    }
+                });
+
+                if($axure.player.settings.loadFeedbackPlugin) {
+                    if($axure.player.settings.isAxshare) {
+                        $axure.utils.loadJS('/Scripts/plugins/feedback/feedback8.js');
+                    } else {
+                        $axure.utils.loadJS('http://share.axure.com/Scripts/plugins/feedback/feedback8.js');
+                    }
+                }
+
+                if(navigator.userAgent.indexOf("MSIE") >= 0) $('#outerContainer').width('100%');
+                initialize();
+                if($axure.player.settings.startCollapsed) $('#outerContainer').splitter({ sizeLeft: 0 });
+                else $('#outerContainer').splitter({ sizeLeft: lastLeftPanelWidth });
+                $('#leftPanel').width(lastLeftPanelWidth);
+                
+                $(window).resize(function() { resizeContent(); });
+
+                $('#maximizePanelContainer').hide();
+
+                initializeLogo();
+
+                $(window).resize();
+                resizeContent();
+                
+                $axure.player.collapseToBar();
+
+                if($axure.player.settings.startCollapsed) {
+                    collapse();
+                    $('#leftPanel').width(0);
+                }
+
+                if(MOBILE_DEVICE) {
+                    $('#interfaceControlFrameMinimizeContainer').height('45px');
+                    $('#interfaceControlFrameMinimizeContainer a').height('45px');
+                    $('#interfaceControlFrameHeaderContainer').css('margin-top','45px');
+                    $('#interfaceControlFrameCloseContainer a').css('padding','10px 0px');
+                    $('#maximizePanelContainer').height('45px');//.css('top','inherit').css('bottom','0px');
+
+                    $('body').removeClass('hashover');
+
+                    if(IOS) {
+                        $('#rightPanel').css('overflow', 'auto').css('-webkit-overflow-scrolling', 'touch').css('-ms-overflow-x', 'hidden');
+
+                        window.addEventListener("orientationchange", function() {
+                            var viewport = document.querySelector("meta[name=viewport]");
+                            //so iOS doesn't zoom when switching back to portrait
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0');
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                            resizeContent();
+                        }, false);
+
+                        $axure.page.bind('load.start', function() {
+                            resizeContent();
+                        });
+                    }
+                }
+
+            });
+
+            function initialize() {
+                var legacyQString = getQueryString("Page");
+                if (legacyQString.length > 0) {
+                    location.href = location.href.substring(0, location.href.indexOf("?")) + "#p=" + legacyQString;
+                    return;
+                }
+
+                var mainFrame = document.getElementById("mainFrame");
+                //if it's local file on safari, test if we can access mainframe after its loaded
+                if(SAFARI && document.location.href.indexOf('file://') >= 0) {
+                    $(mainFrame).load(function () {
+                        var canAccess;
+                        try {
+                            var mainFrameWindow = mainFrame.contentWindow || mainFrame.contentDocument;
+                            mainFrameWindow['safari_file_CORS'] = 'Y';
+                            canAccess = mainFrameWindow['safari_file_CORS'] === 'Y';
+                        } catch(err) {
+                            canAccess = false;
+                        }
+
+                        if(!canAccess) window.location = 'resources/chrome/safari.html';
+                    });
+                }
+
+                mainFrame.contentWindow.location.href = getInitialUrl();
+            }
+
+            function initializeLogo() {
+                if($axure.document.configuration.logoImagePath) {
+                    var image = new Image();
+                    image.onload = function() {
+                        $('#logoImage').css('max-width', this.width + 'px');
+                        $axure.player.resizeContent();
+                    };
+                    image.src = $axure.document.configuration.logoImagePath;
+                
+                    $('#interfaceControlFrameLogoImageContainer').html('<img id="logoImage" src="" />');
+                    $('#logoImage').attr('src', $axure.document.configuration.logoImagePath).load(function() { resizeContent(); });
+                } else $('#interfaceControlFrameLogoImageContainer').hide();
+
+                if ($axure.document.configuration.logoImageCaption) {
+                    $('#interfaceControlFrameLogoCaptionContainer').html($axure.document.configuration.logoImageCaption);
+                } else $('#interfaceControlFrameLogoCaptionContainer').hide();
+
+                if(!$('#interfaceControlFrameLogoImageContainer').is(':visible') && !$('#interfaceControlFrameLogoCaptionContainer').is(':visible')) {
+                    $('#interfaceControlFrameLogoContainer').hide();
+                }
+            }
+
+            var resizeContent = $axure.player.resizeContent = function() {
+                var newHeight = $(window).height();
+                var newWidth = $(window).width();
+
+                var controlContainerHeight = newHeight;// - 30;
+                if($('#interfaceControlFrameLogoContainer').is(':visible')) controlContainerHeight -= $('#interfaceControlFrameLogoContainer').outerHeight();// + 16;
+
+                $('#outerContainer').height(newHeight).width(newWidth);
+                $('.vsplitbar').height(newHeight);
+                $('#leftPanel').height(newHeight);
+                $('#interfaceControlFrame').height(newHeight);
+                $('#interfaceControlFrameContainer').height(newHeight);
+                $('#interfaceControlFrameHostContainer').height(controlContainerHeight);
+
+                $('#rightPanel').height(newHeight);
+                $('#mainFrame').height(newHeight);
+
+                if($('#leftPanel').is(':visible')) $('#rightPanel').width($(window).width() - $('#leftPanel').width() - 1);// $('.vsplitbar').width());
+                else $('#rightPanel').width($(window).width());
+
+                $(document).trigger('ContainerHeightChange',[controlContainerHeight]);
+
+                if(MOBILE_DEVICE) {
+                    if(!(getHashStringVar(ADAPTIVE_VIEW_VAR_NAME).length > 0)) $axure.messageCenter.postMessage('setAdaptiveViewForSize', {'width':newWidth, 'height':$('#rightPanel').height()});
+                }
+            }
+
+            var collapseToBar = $axure.player.collapseToBar = function() {
+                lastLeftPanelWidth = $('#leftPanel').width();
+                $('#leftPanel').width('55px');
+                $('.vsplitbar').hide();
+                $('#rightPanel').width($(window).width() - $('#leftPanel').width());
+                $(window).resize();
+                $('#outerContainer').trigger('resize');
+                toolBarOnly = true;
+            }
+
+            var expandFromBar = $axure.player.expandFromBar = function() {
+                if($('.vsplitbar').is(':visible')) return;
+
+                $('#leftPanel').width(lastLeftPanelWidth);
+                $('.vsplitbar').show();
+                $('#rightPanel').width($(window).width() - $('#leftPanel').width() - 1);// $('.vsplitbar').width());
+                $(window).resize();
+                $('#outerContainer').trigger('resize');
+                toolBarOnly = false;
+            }
+
+        })();
+
+        function messageCenter_message(message, data) {
+            if(message == 'expandFrame') expand();
+            else if(message == 'getCollapseFrameOnLoad' && $axure.player.settings.startCollapsed && !MOBILE_DEVICE) $axure.messageCenter.postMessage('collapseFrameOnLoad');
+        }
+
+        
+        function getInitialUrl() {
+            var pageName = getHashStringVar("p");
+            if(pageName.length > 0) return pageName + ".html";
+            else {
+                var url = getFirstPageUrl($axure.document.sitemap.rootNodes);
+                return (url ? url : "about:blank");
+            }
+        }
+
+        function getFirstPageUrl(nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                if (node.url) return node.url;
+                else {
+                    var hasChildren = (node.children && node.children.length > 0);
+                    if (hasChildren) {
+                        var url = getFirstPageUrl(node.children);
+                        if (url) return url;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function closePlayer() {
+            if($axure.page.location) window.location.href = $axure.page.location;
+            else {
+                var pageFile = getInitialUrl();
+                var currentLocation = window.location.toString();
+                window.location.href = currentLocation.substr(0, currentLocation.lastIndexOf("/") + 1) + pageFile;
+            }
+        }
+
+        function replaceHash(newHash) {
+            var currentLocWithoutHash = window.location.toString().split('#')[0];
+
+            //We use replace so that every hash change doesn't get appended to the history stack.
+            //We use replaceState in browsers that support it, else replace the location
+            if(typeof window.history.replaceState != 'undefined') {
+                try {
+                    //Chrome 45 (Version 45.0.2454.85 m) started throwing an error here when generated locally (this only happens with sitemap open) which broke all interactions.
+                    //try catch breaks the url adjusting nicely when the sitemap is open, but all interactions and forward and back buttons work.
+                    //Uncaught SecurityError: Failed to execute 'replaceState' on 'History': A history state object with URL 'file:///C:/Users/Ian/Documents/Axure/HTML/Untitled/start.html#p=home' cannot be created in a document with origin 'null'.
+                    window.history.replaceState(null, null, currentLocWithoutHash + newHash);
+                } catch(ex) {}
+            } else {
+                window.location.replace(currentLocWithoutHash + newHash);
+            }
+        }
+
+        function collapse() {
+            setVarInCurrentUrlHash('c', 1);
+            if(!toolBarOnly) lastLeftPanelWidth = $('#leftPanel').width();
+
+            $('#maximizePanelContainer').show();
+            $('#leftPanel').hide();
+            $('.vsplitbar').hide();
+            $('#rightPanel').width($(window).width());
+            $(window).resize();
+            $('#outerContainer').trigger('resize');
+
+            $(document).trigger('sidebarCollapse');
+
+            if(MOBILE_DEVICE) {
+                $('#maximizePanelContainer').animate({
+                    top:$('#rightPanel').height() - $('#maximizePanelContainer').height()
+                }, 300, 'swing', function() {
+                    $('#maximizePanelContainer').css('top', 'inherit').css('bottom', '0px');
+                });
+            }
+        }
+
+        function expand() {
+            if(MOBILE_DEVICE) {
+                $('#maximizePanelContainer').css('top', '0px').css('bottom', 'inherit');
+            }
+
+            deleteVarFromCurrentUrlHash('c');
+            $('#maximizePanelContainer').hide();
+            $('#leftPanel').width(lastLeftPanelWidth);
+            $('#leftPanel').show();
+            if(!toolBarOnly) {
+                $('.vsplitbar').show();
+                $('#rightPanel').width($(window).width() - $('#leftPanel').width() - 1);
+            } else {
+                $axure.player.collapseToBar();
+            }
+            $(window).resize();
+            $('#outerContainer').trigger('resize');
+
+            $(document).trigger('sidebarExpanded');
+        }
+
+
+        function mainFrame_onload() {
+            if($axure.page.pageName) document.title = $axure.page.pageName;
+        }
+
+        function getQueryString(query) {
+            var qstring = self.location.href.split("?");
+            if(qstring.length < 2) return "";
+            return GetParameter(qstring, query);
+        }
+        
+        function GetParameter(qstring, query) {
+            var prms = qstring[1].split("&");
+            var frmelements = new Array();
+            var currprmeter, querystr = "";
+
+            for(var i = 0; i < prms.length; i++) {
+                currprmeter = prms[i].split("=");
+                frmelements[i] = new Array();
+                frmelements[i][0] = currprmeter[0];
+                frmelements[i][1] = currprmeter[1];
+            }
+
+            for(j = 0; j < frmelements.length; j++) {
+                if(frmelements[j][0].toLowerCase() == query.toLowerCase()) {
+                    querystr = frmelements[j][1];
+                    break;
+                }
+            }
+            return querystr;
+        }
+        
+        function getHashStringVar(query) {
+            var qstring = self.location.href.split("#");
+            if(qstring.length < 2) return "";
+            return GetParameter(qstring, query);
+        }
+
+        function setHashStringVar(currentHash, varName, varVal) {
+            var varWithEqual = varName + '=';
+            var poundVarWithEqual = varVal === '' ? '' :  '#' + varName + '=' + varVal;
+            var ampVarWithEqual = varVal === '' ? '' :  '&' + varName + '=' + varVal;
+            var hashToSet = '';
+
+            var pageIndex = currentHash.indexOf('#' + varWithEqual);
+            if(pageIndex == -1) pageIndex = currentHash.indexOf('&' + varWithEqual);
+            if(pageIndex != -1) {
+                var newHash = currentHash.substring(0, pageIndex);
+
+                newHash = newHash == '' ? poundVarWithEqual : newHash + ampVarWithEqual;
+
+                var ampIndex = currentHash.indexOf('&', pageIndex + 1);
+                if(ampIndex != -1) {
+                    newHash = newHash == '' ? '#' + currentHash.substring(ampIndex + 1) : newHash + currentHash.substring(ampIndex);
+                }
+                hashToSet = newHash;
+            } else if(currentHash.indexOf('#') != -1) {
+                hashToSet = currentHash + ampVarWithEqual;
+            } else {
+                hashToSet = poundVarWithEqual;
+            }
+
+            if(hashToSet != '' || varVal == '') {
+                return hashToSet;
+            }
+
+            return null;
+        }
+
+        function setVarInCurrentUrlHash(varName, varVal) {
+            var newHash = setHashStringVar(window.location.hash, varName, varVal);
+
+            if(newHash != null) {
+                replaceHash(newHash);
+            }
+        }
+
+        function deleteHashStringVar(currentHash, varName) {
+            var varWithEqual = varName + '=';
+
+            var pageIndex = currentHash.indexOf('#' + varWithEqual);
+            if(pageIndex == -1) pageIndex = currentHash.indexOf('&' + varWithEqual);
+            if(pageIndex != -1) {
+                var newHash = currentHash.substring(0, pageIndex);
+
+                var ampIndex = currentHash.indexOf('&', pageIndex + 1);
+
+                //IF begin of string....if none blank, ELSE # instead of & and rest
+                //IF in string....prefix + if none blank, ELSE &-rest
+                if(newHash == '') { //beginning of string
+                    newHash = ampIndex != -1 ? '#' + currentHash.substring(ampIndex + 1) : '';
+                } else { //somewhere in the middle
+                    newHash = newHash + (ampIndex != -1 ? currentHash.substring(ampIndex) : '');
+                }
+
+                return newHash;
+            }
+
+            return null;
+        }
+
+        function deleteVarFromCurrentUrlHash(varName) {
+            var newHash = deleteHashStringVar(window.location.hash, varName);
+
+            if(newHash != null) {
+                replaceHash(newHash);
+            }
+        }
+    --></script>
+    
+    <link type="text/css" rel="Stylesheet" href="./我的考试_files/sitemap.css">
+    <link type="text/css" rel="Stylesheet" href="./我的考试_files/page_notes.css">
+    <link type="text/css" rel="Stylesheet" href="./我的考试_files/debug.css">
+    <script src="./我的考试_files/startPost.js"></script>
+
+
+    <!--<link type="text/css" rel="Stylesheet" href="plugins/recordplay/styles/recordplay.css" />
+    <script type="text/javascript" src="plugins/recordplay/recordplay.js"></script>-->
+    
+
+</head>
+<body scroll="no" class="hashover" style="">
+    <div id="outerContainer" style="position: relative; height: 694px; width: 1423px;">
+
+        <div id="leftPanel" style="position: absolute; z-index: 1; left: 0px; width: 295px; height: 694px;">
+            <div id="interfaceControlFrame" style="height: 694px;">
+                <div id="interfaceControlFrameMinimizeContainer">
+                    <a title="Collapse" id="interfaceControlFrameMinimizeButton" onclick="collapse();">&nbsp;</a>
+                </div>
+                <div id="interfaceControlFrameHeaderContainer">
+                    <ul id="interfaceControlFrameHeader"><li id="sitemapHostBtn"><a pluginid="sitemapHost" class="selected">PAGES</a></li><li id="pageNotesHostBtn"><a pluginid="pageNotesHost">NOTES</a></li><li id="debugHostBtn"><a pluginid="debugHost">CONSOLE</a></li></ul>
+                </div>
+                <div id="interfaceControlFrameContainer" style="height: 694px;">
+                    <div id="interfaceControlFrameLogoContainer" style="display: none;">
+                        <div id="interfaceControlFrameLogoImageContainer" style="display: none;"></div>
+                        <div id="interfaceControlFrameLogoCaptionContainer" style="display: none;"></div>
+                    </div>
+                    <div id="interfaceControlFrameHostContainer" style="height: 694px;">
+                    <div id="sitemapHost" style="display: block;"><div id="sitemapHeader" '="" class="sitemapHeader"><div id="sitemapToolbar" class="sitemapToolbar"><div class="pluginNameHeader">PAGES</div><div class="pageNameHeader" style="padding-right: 55px;">我的考试</div><div class="pageButtonHeader"><a id="linksButton" title="Get Links" class="sitemapToolbarButton"></a><a id="highlightInteractiveButton" title="Highlight interactive elements" class="sitemapToolbarButton"></a></div></div><div id="sitemapLinksContainer" class="sitemapLinkContainer" style="display: none;"><div style="margin-bottom:10px;">Generate sharable URLs</div><input id="sitemapLinkWithPlayer" type="text" class="sitemapLinkField"><div class="sitemapOptionContainer"><div><label><input type="radio" name="sitemapToggle" value="withoutmap">Without Sidebar</label></div><div style="margin-top:10px;"><label><input type="radio" name="sitemapToggle" value="withmap">With Sidebar</label><div id="sitemapOptionsDiv" style="display: none;"><div class="sitemapUrlOption"><label><input type="checkbox" id="minimizeBox" disabled="disabled">Minimize sidebar</label></div><div class="sitemapUrlOption"><label><input type="checkbox" id="collapseBox" disabled="disabled">Pages closed</label></div><div class="sitemapUrlOption"><label><input type="checkbox" id="footnotesBox" disabled="disabled">Hide footnotes</label></div><div class="sitemapUrlOption"><label><input type="checkbox" id="highlightBox" disabled="disabled">Highlight interactive elements</label></div></div></div></div></div></div><div id="sitemapTreeContainer" style="height: 612px;"><div id="searchDiv" style=""><input id="searchBox" style="" type="text" class="searchBoxHint"></div><ul class="sitemapTree" style="clear:both;"><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="所有页面.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">所有页面</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="登陆页面.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">登陆页面</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="首页，情况1.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">首页，情况1</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="首页，情况2.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">首页，情况2</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="首页，情况3.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">首页，情况3</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="我的.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">我的</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="完善资料.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">完善资料</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div class="sitemapHighlight"><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="我的考试.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">我的考试</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="历史训练营.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">历史训练营</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="邀请新人.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">邀请新人</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="售卖页面.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">售卖页面</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="本期开营.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">本期开营</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="已报名.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">已报名</span></a></div></div></li></ul></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">组件</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="营.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">营</span></a></div></div></li></ul></li></ul></div></div><div id="pageNotesHost" style="display: none;"><div id="pageNotesHeader" '="" class="sitemapHeader" style=""><div id="pageNotesToolbar" class="sitemapToolbar"><div class="pluginNameHeader">NOTES</div><div class="pageNameHeader">我的考试</div><div class="pageButtonHeader"><a id="notesPreviousButton" title="Previous Page" class="sitemapToolbarButton prevPageButton"></a><a id="notesNextButton" title="Next Page" class="sitemapToolbarButton nextPageButton"></a><a id="footnotesButton" title="Toggle Footnotes" class="sitemapToolbarButton sitemapToolbarButtonSelected"></a></div></div></div><div id="pageNotesScrollContainer" style="height: 666px;"><div id="pageNotesContainer"><div id="pageNotesEmptyState" class="emptyStateContainer" style="display: none;"><div class="emptyStateTitle">No notes for this page.</div><div class="emptyStateContent">Notes added in Axure RP will appear here.</div><div class="dottedDivider"></div></div><span id="pageNotesContent"><div class="widgetNoteContainer" data-id="u0"><div class="widgetNoteFootnote"><div class="annnoteline"></div><div class="annnoteline"></div><div class="annnoteline"></div></div><div class="widgetNoteLabel"> (矩形)</div><div class="pageNoteName">功能逻辑</div><div class="pageNote"><p><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">首页中，有</span><span>&nbsp; </span><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">种情况。</span></p><p><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">1.用户没有加入任何营，首页仅仅展示新营售卖；</span></p><p><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">2.用户加入了1个或多个营，</span></p></div></div><div class="nondottedDivider"></div><div class="widgetNoteContainer" data-id="u13"><div class="widgetNoteFootnote"><div class="annnoteline"></div><div class="annnoteline"></div><div class="annnoteline"></div></div><div class="widgetNoteLabel"> (矩形)</div><div class="pageNoteName">功能逻辑</div><div class="pageNote"><p><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">点击</span><span>“</span><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">我的考试</span><span>”</span><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">，弹出设置考试面板</span><span style="font-family:&#39;PingFangSC-Regular&#39;, &#39;PingFang SC&#39;;">。考试面板在页面正中间。</span></p></div></div><div class="nondottedDivider"></div></span></div></div></div><div id="debugHost" style="display: none;"><div id="debugHeader" '="" class="sitemapHeader" style=""><div id="debugToolbar" class="sitemapToolbar"><div class="pluginNameHeader">CONSOLE</div><div class="pageNameHeader">我的考试</div></div></div><div id="debugScrollContainer" style="height: 666px;"><div id="debugContainer"><div id="variablesContainer"><div id="variablesClearLinkContainer" class="debugLinksContainer"><a id="variablesClearLink" title="Reset Variables">Reset Variables</a></div><div id="variablesDiv"><div class="variableDiv"><span class="variableName">OnLoadVariable</span><br>(blank)</div></div></div><div class="dottedDivider"></div><div id="traceContainer"><div id="traceClearLinkContainer" class="debugLinksContainer" style="display: none;"><a id="traceClearLink" title="Clear Trace">Clear Trace</a></div><div id="traceEmptyState" class="emptyStateContainer"><div class="emptyStateTitle">No interactions in the trace.</div><div class="emptyStateContent">Triggered interactions will appear here.</div><div class="dottedDivider"></div></div><div id="traceDiv"></div></div></div></div></div></div>
+                </div>
+                <div id="interfaceControlFrameCloseContainer">
+                    <a title="Close" id="interfaceControlFrameCloseButton" onclick="closePlayer();">CLOSE</a>
+                </div>
+            </div>
+        </div><div class="vsplitbar" unselectable="on" style="z-index: 100; position: absolute; user-select: none; top: 0px; cursor: col-resize; left: 292px; height: 694px; display: block;"><a href="javascript:void(0)" accesskey="" tabindex="0" title="vsplitbar"></a></div>
+        <div id="rightPanel" style="position: absolute; z-index: 1; left: 296px; width: 1127px; height: 694px;">
+            <iframe id="mainFrame" name="mainFrame" width="100%" height="100%" src="./我的考试_files/saved_resource.html" frameborder="0" style="display: block; height: 694px;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+        </div>
+
+    </div>
+
+    <div id="maximizePanelContainer" style="display: none;">
+        <iframe id="expandFrame" src="./我的考试_files/expand.html" width="100%" height="100%" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
+    </div>
+
+
+
+</body></html>
