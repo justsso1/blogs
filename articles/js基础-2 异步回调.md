@@ -42,9 +42,6 @@ Promise的异步特性是基于任务的。
 ---
 代码中语句的顺序和javascript引擎执行语句的顺序并不一定要一致。
 
-
-
-
 ### async await
 
 思路： 从回调函数到promise到generator到async await 
