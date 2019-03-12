@@ -169,3 +169,73 @@ for(var i in foo) {
 
 ## 构造函数、原型对象和实例之间的关系
 
+
+
+
+
+#### 创建对象
+
+##### 工厂模式
+
+工厂模式是软件工程领域一种广为人知的设计模式，这种模式抽象了创建具体对象的过程。
+
+ECMAScript是没有类的概念的，所以开发人员就发明了一种函数，用函数来封装以特定接口创建对象的细节。
+
+```javascript
+function createPerson(name, age, job){
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.job = job;
+        o.sayName = function(){
+            alert(this.name);
+        };
+       return o; 
+}
+var person1 = createPerson("Nicholas", 29, "Software Engineer");
+var person2 = createPerson("Greg", 27, "Doctor");    
+```
+
+工厂模式虽然解决了创建
+多个相似对象的问题，但却没有解决对象识别的问题(即怎样知道一个对象的类型)。
+
+##### 构造函数模式
+
+ECMAScript中有原生的构造函数可以用来创建特定类型的对象，比如Object、Array这样的原生构造函数。
+
+但是我们还是创建自定义的构造函数，从而自定义的对象也就有了类型了，解决了工厂模式的问题。
+
+```javascript
+function Person(name, age, job){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.sayName = function(){
+            alert(this.name);
+        }; 
+} 
+        
+var person1 = new Person("Nicholas", 29, "Software Engineer");
+var person2 = new Person("Greg", 27, "Doctor");
+```
+
+按照惯例，构造函数始终都应该以一个大写字母开头，而非构造函数则应该以一个小写字母开头。
+
+要创建 `Person` 的新实例，必须使用 `new` 操作符。
+
+以这种方式调用构造函数实际上会经历以下 4 个步骤: 
+
+1. 创建一个新对象;
+
+2. 将构造函数的作用域赋给新对象(因此 this 就指向了这个新对象);
+
+3. 执行构造函数中的代码(为这个新对象添加属性);
+
+4. 返回新对象。
+
+   这也是 `new` 操作符所有的。
+
+对象的 `constructor`属性最初是用来标识对象类型的。
+
+对象检测类型，最有效的方法是 `instanceof`
+
