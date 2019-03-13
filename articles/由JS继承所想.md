@@ -235,7 +235,26 @@ var person2 = new Person("Greg", 27, "Doctor");
 
    这也是 `new` 操作符所有的。
 
-对象的 `constructor`属性最初是用来标识对象类型的。
+对象实例的 `constructor`属性最初是用来标识对象类型的。
 
 对象检测类型，最有效的方法是 `instanceof`
 
+
+
+Object 的每个实例都具有下列属性和方法。 
+
+- constructor:保存着用于创建当前对象的函数。对于前面的例子而言，person1.constructor === Person
+
+
+
+
+
+##### 原型模式
+
+**<u>理解原型对象</u>**
+
+**<u>原型的动态性</u>**
+
+​	重写原型对象，会在prototype原型对象中手动创建constructor属性，值为构造函数。但是对象实例和原型对象之间的关系断了，对象实例的__ __proto__ __不会关联到重写的原型对象上的。
+
+对象实例上的__ __proto__ __只和原型对象有关系，和构造函数没有关系。
