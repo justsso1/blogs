@@ -48,6 +48,9 @@ sudo apt-get --purge remove mongodb mongodb-clients mongodb-server
 
 输入`mongo`进入shell命令模式，默认连接的数据库是test数据库，在此之前一定要确保你已经启动了MongoDB，否则会出现错误，启动之后运行成功，如下截图：
 
+
+
+
 ![输入Mongo命令](../imgs/mongo.png)
 
 **常用操作命令：**
