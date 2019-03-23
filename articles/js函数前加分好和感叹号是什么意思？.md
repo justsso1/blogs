@@ -27,3 +27,5 @@ function a(){alert('iifksp')}()  //Uncaught SyntaxError: Unexpected token )
 所以，**任何消除函数声明和函数表达式间歧义的方法，都可以被解析器正确识别**。所以包括！
 
 ！会使用js函数解析为一个表达式，解析器可以分析。
+
+jkh 
