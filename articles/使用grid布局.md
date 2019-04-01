@@ -6,7 +6,7 @@
 
 什么是grid布局？它和flex布局，定位布局有什么不同？
 
-![grid1](/Users/ssojust/Desktop/grid1.png)
+![grid1](/Users/ssojust/gitproject/blogs/imgs/grid/grid1.png)
 
 1、2、3、4是纵向网格线，123是横向网格线，平行网格线之间是网格轨道，
 
@@ -103,3 +103,5 @@ grid-template-columns不仅仅只接受百分比的值，也接受像像素或em
 <http://cssgridgarden.com/#zh-cn>
 
 <http://flexboxfroggy.com/>
+
+<https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Grid_Layout/Relationship_of_Grid_Layout>
