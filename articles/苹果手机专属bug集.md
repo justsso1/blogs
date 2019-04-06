@@ -16,6 +16,10 @@ window.scrollTo(0, document.documentElement.clientHeight);
 
 ```
 
+这个的关键点在于，什么时机调用这个代码
+
+
+
 2.苹果手机上不能自动播放音频
 
  由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio, 因此我们通过一个用户交互事件来主动 play 一下 audio.
