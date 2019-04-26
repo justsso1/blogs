@@ -20,6 +20,8 @@ Gulp.src
 
 .dest()
 
+gulp.parallel
+
 ### Gulp 3 VS gulp4的区别
 
 > Gulp 4最大的变化就是你不能像以前那样传递一个依赖任务列表。
@@ -179,8 +181,6 @@ gulp.task('browserSync', function() {
 ```javascript
 gulp.task('serve', gulp.series('build', gulp.parallel('watch', 'browserSync')));
 ```
-
-
 
 ### 参考
 
