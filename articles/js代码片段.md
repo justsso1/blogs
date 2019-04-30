@@ -23,7 +23,10 @@ var cookie = {
         }
     }
     return tips;
-    }
+    },
+  unset: function(){
+    
+  }
 }
 ```
 
