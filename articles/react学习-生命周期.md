@@ -1,14 +1,10 @@
 # react学习-生命周期v16.8.6
 
-##### componentDidMount 组件挂载
-
-##### componentWillUnmount 组件卸载
-
 class组件提供了更加丰富的功能，需要继承`React.Component`
 
 **生命周期速查表** [http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
-步骤：
+*react生命周期阶段：*
 
 ### 组件挂载
 
@@ -64,11 +60,47 @@ this.setState(state, props => ({
 
 componentWillUnmount()
 
-### 错误处理
+### React 16 中的错误处理
 
 当渲染过程，生命周期，或子组件的构造函数中抛出错误时，会调用如下方法：
 
 Static  getDerivedStateFromError()
 
-componentDidCatch()
+```react
+static getDerivedStateFromError(error)
+```
 
+```react
+componentDidCatch(error, info)
+```
+
+此生命周期在后代组件抛出错误后被调用。 它接收两个参数：
+
+1. `error` —— 抛出的错误。
+2. `info` —— 带有 `componentStack` key 的对象，其中包含[有关组件引发错误的栈信息](https://zh-hans.reactjs.org/docs/error-boundaries.html#component-stack-traces)。
+
+```react
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    logErrorToMyService(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+```
+
+请注意，**错误边界仅捕获树中它们下面的组件中的错误**。错误边界本身无法捕获错误。如果错误边界尝试呈现错误消息失败，则错误将传播到其上方最接近的错误边界。这也类似于`catch {}`JavaScript在JavaScript中的工作方式。
