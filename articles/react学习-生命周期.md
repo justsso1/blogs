@@ -104,3 +104,5 @@ class ErrorBoundary extends React.Component {
 ```
 
 请注意，**错误边界仅捕获树中它们下面的组件中的错误**。错误边界本身无法捕获错误。如果错误边界尝试呈现错误消息失败，则错误将传播到其上方最接近的错误边界。这也类似于`catch {}`JavaScript在JavaScript中的工作方式。
+
+componentWillRecieveProps(){}快被弃用了
