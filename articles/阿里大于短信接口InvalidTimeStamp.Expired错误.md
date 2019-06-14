@@ -64,6 +64,17 @@ shutdown命令安全地将系统关机。有些用户会使用直接断掉电源
 shutdown -r now  //立刻重启系统
 ```
 
+重启之后，通常会有nginx的重启。
+
+```shell
+cd /usr/local/nginx/sbin
+./nginx
+```
+
+完成以上步骤，阿里大于短信接口就可以正常使用了。
+
+
+
 另外附上几个linux实用的命令：
 
 `lsb_release -a` 用于查看自己的系统是ubuntu还是redhat或者其他系统
@@ -90,4 +101,3 @@ shutdown -r now  //立刻重启系统
 
 ​		[-time] 设定关机〔shutdown〕前的时间。
 
-完成以上步骤，阿里大于短信接口就可以正常使用了。
