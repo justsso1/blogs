@@ -1,0 +1,5 @@
+### 安装Taro
+
+### Taro-ui
+
+建议taro 项目使用 scss 样式文件，因为taro-ui是支持scss，可以做到单个文件引入。
