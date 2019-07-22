@@ -32,6 +32,9 @@
 
 - ##### dom 元素上的 `aria-disabled`属性
 
+这个是用于屏幕阅读器的，帮助残障人士更好的访问网站。
+
+
 - ##### css3中的transform 对行内元素（inline）无效
 
 transform适用于：所有块级元素及某些内联元素。
