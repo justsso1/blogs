@@ -55,5 +55,5 @@ set get
 
 #### 抽象类
 
-
+abstract
 
