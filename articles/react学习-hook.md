@@ -4,13 +4,21 @@
 
 Hook是react 16.8 新增的特性，可以让你在不编写class的情况下，使用state以及其他的React特性。
 
+React 需要为共享状态逻辑提供更好的原生途径。你可以使用 Hook 从组件中提取状态逻辑，使得这些逻辑可以单独测试并复用。**Hook 使你在无需修改组件结构的情况下复用状态逻辑。** 这使得在组件间或社区内共享 Hook 变得更便捷。
+
 Hook 是能让你在函数组件中“钩入” React 特性的函数。它们名字通常都以 `use` 开始。
 
 ### Hook: useState
 
-
-
 当我们使用 `useState` 定义 state 变量时候，它返回一个有两个值的元组。第一个值是当前的 state，第二个值是更新 state 的函数。我们使用数组解构把他们分离出来。
+
+第二个值是改变state的函数， 但是它不会把新的 state 和旧的 state 进行合并。而是直接替换它。
+
+##### class的this.setState和 useState的区别：
+
+this.setState({}) ： 新的state 和旧的state进行合并
+
+useState(值) ： 新的state 直接替换旧的state
 
 ### HooK: useEffect
 
