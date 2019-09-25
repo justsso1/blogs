@@ -79,4 +79,3 @@ animation表示一组或多组动画，每组之间用逗号相隔。
 - AnimationEvent.elapsedTime 动画运行的时间，不包括暂停的时间
 - AnimationEvent.pseudoElement 伪元素
 
-### 检测css动画的支持性
