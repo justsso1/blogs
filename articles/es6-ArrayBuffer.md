@@ -230,7 +230,100 @@ File是Blob对象的一个特例，可以使用slice()来截取文件
 ### 拖拽上传
 
 拖拽上传主要会用到的知识点有：拖拽drog|drop，FileAPI 读取文件，formData
+- Drag&Drop : HTML5基于拖拽的事件机制.
+
+- File API : 可以很方便的让 Web 应用访问文件对象，
+File API 包括FileList、Blob、File、FileReader、URI scheme，
+本文主要讲解拖拽上传中用到的 FileList 和 FileReader 接口。
+
+- FormData : FormData 是基于 XMLHttpRequest Level 2的新接口，
+可以方便 web 应用模拟 Form 表单数据，最重要的是它支持文件的二进制流数据，
+这样我们就能够通过它来实现 AJAX 向后端发送文件数据了。
+
 
 #### H5原生的Drag和Drop事件
 
 H5原生提供拖拽操作，不必使用鼠标事件来模拟。
+
+**Drag和Drop包括以下事件：**
+
+dragstart： 要被拖拽的元素开始拖拽时触发，这个事件对象是被拖拽元素
+dragenter： 拖拽元素进入目标元素时触发，这个事件对象是目标元素
+dragover： 拖拽某元素在目标元素上移动时触发，这个事件对象是目标元素
+dragleave： 拖拽某元素离开目标元素时触发，这个事件对象是目标元素
+dragend： 在drop之后触发，就是拖拽完毕时触发，这个事件对象是被拖拽元素
+drop：将被拖拽元素放在目标元素内时触发，这个事件对象是目标元素完成一次成功页面元素拖拽的行为事件过程：
+
+`dragstart –> dragenter –> dragover –> drop –> dragend`
+
+//要想实现拖拽，首页需要阻止浏览器默认行为，一共四个事件
+
+$(document).on({
+	dragleave:function(e){	//拖离
+		e.preventDefault();
+	},
+	drop:function(e){		//放下
+		e.preventDefault();
+	},
+	dragenter:function(e){	//拖进
+		e.preventDefault();
+	},
+	dragover:function(e){	//拖来拖去
+		e.preventDefault();
+	}
+});
+
+拖拽对于浏览器的默认行为是打开该文件。
+
+File API 中的 FileList 接口,它主要通过两个途径获取本地文件列表：
+一种是 <input type="file">的表单形式，
+一种是 e.dataTransfer.files 拖拽事件传递的文件信息
+
+示例代码：
+
+```html
+<div style="position: relative">
+    <div id="container">拖拽上传</div>
+    <input type="file" style="position: absolute;left: 0;top: 0">
+</div>
+```
+
+```js
+//拖拽上传
+//阻止浏览器拖拽默认行为
+document.ondragleave = (e) => { //脱离
+    e.preventDefault()
+};
+document.ondragover = (e) => { //托来托去
+    e.preventDefault();
+    document.querySelector('#container').classList.add('over');
+};
+document.ondragenter = (e) => {  //拖进
+    e.preventDefault();
+    document.querySelector('#container').classList.add('over');
+
+};
+document.ondrop = (e) => { // 托后放
+    e.preventDefault();
+    document.querySelector('#container').classList.add('over');
+};
+
+let contaienr = document.querySelector('#container');
+contaienr.addEventListener('dragover', handleDragover, false);
+contaienr.addEventListener('drop', handleDrop, false);
+
+function handleDragover(event) {
+    event.stopPropagation(); //停止冒泡
+    event.preventDefault();  //阻止默认行为
+    console.log('>>> dragover...')
+}
+
+function handleDrop(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    /***** 访问拖拽文件 *****/
+    const files = event.dataTransfer.files;
+    console.log(files);
+    /**********/
+}
+```
