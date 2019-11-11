@@ -1,4 +1,4 @@
-﻿# Redux
+# Redux
 
 标签（空格分隔）： redux 状态管理 
 
@@ -47,5 +47,32 @@ Taking Advantage of `combineReducers`
 `selector` functions 
 
 Stack Overflow: Why do we need middleware for async flow in Redux?
+
+---
+
+Connect 函数将react组件连接到redux存储
+
+connect是`redux-react`库的函数，这个函数提供了很多优化去阻止不必要的更新，提升react性能。
+
+它可以接受两个函数 `mapStateToProps(state, ownProps)`	,`mapDispatchToProps(dispatch, ownProps)`
+
+
+
+Provider 组件
+
+Provider 来自`react-redux`库，可以将store传递给应用中所有的容器组件，而无需显示传递它，只需在渲染根组件的时候使用它一次。
+
+
+
+```
+<Provider store={store}>
+	<App />
+</Provider>
+```
+
+**redux的高级使用方法**
+
+#### 异步的Action
+
 
 
