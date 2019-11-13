@@ -74,5 +74,9 @@ Provider 来自`react-redux`库，可以将store传递给应用中所有的容�
 
 #### 异步的Action
 
+#### 使用中间件Middleware
+
+middleware提供的是一个位于action被发起之后，到达reducer之前的扩展。你可以利用redux middler来进行日志记录，创建崩溃报告，调用异步接口或者路由等等。
+
 
 
