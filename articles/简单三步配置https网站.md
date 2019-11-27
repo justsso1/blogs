@@ -9,9 +9,9 @@ ssl证书是一种加密协议。大部分企业级的SSL证书都是需要收�
 1. 点击购买证书按钮
 2. 选择免费型 DV SSL
 3. 填写个人信息，配置域名信息
-4. 配置域名授权验证
+4. 配置域名授权验证，这一步，如果你选择的是阿里云域名的话，它会自动帮你增加一条`TXT`记录
 
-做完以上步骤，就会发现在域名的dns解析下面多了一条txt记录。证书的状态变成**已签发**之后，就可以把证书下载到本地。
+做完以上步骤，就会发现在域名的dns解析下面多了一条`TXT`记录。证书的状态变成**已签发**之后，就可以把证书下载到本地。
 
 #### 第二步：配置nginx服务器
 
@@ -56,8 +56,8 @@ server {
         root /home/xxx;
         index index.html index.htm index.nginx-debian.html;    
 
-        ssl_certificate   ssl/2353222_wordcamp.ibt.tel.pem;
-        ssl_certificate_key  ssl/2353222_wordcamp.ibt.tel.key;
+        ssl_certificate   ssl/2353222_wordcamp.ibt.tel.pem; 	 //主要改这儿
+        ssl_certificate_key  ssl/2353222_wordcamp.ibt.tel.key; //主要改这儿	
         ssl_session_timeout 5m;
         ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;

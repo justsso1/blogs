@@ -125,3 +125,191 @@ export default {
 componentDidshow
 
 曾经在这个函数上踩过坑，当你从页面栈中退回到这个页面时，会触发该页面的`componentDidShow`生命周期，react组件渲染只有两个原因，一个是props改变了，一个是state变了且使用了setState，如果只是修改了state的状态，没有使用setState方法，依然是不会触发组件重新渲染的，这个道理在Taro中依然适用。
+
+
+
+**页面分享**
+
+小程序规定，只有给当前页面设置了分享参数，点击右上角的三个点才会有”分享转发“，小程序的每一个页面都需要设置分享参数，如果一个个去写，未免太麻烦了些。
+
+我使用了装饰器，给需要的页面多包装一层，装饰器其实就是高阶组件，高阶组件的作用就是组件之间的代码复用。组件可能有着某些相同的逻辑，把这些逻辑抽离出来，放到高阶组件中进行复用。*高阶组件内部的包装组件和被包装组件之间通过 `props` 传递数据*。
+
+而装饰器就是给对象动态地增加职责，装饰器能够在不改变对象自身的基础上，在程序运行期间给对象增加职责。
+
+```react
+function withShare(opts = {}) {
+
+  // 设置默认
+  const defalutPath = 'pages/Index/Index?';
+  const defalutTitle = '发现一个特别好用的背单词小程序，词汇训练营了解一下';
+  const defaultImageUrl = defaultShareImg;
+  const defaultFromPath = ''; //默认分享页面
+
+  return function demoComponent(Component) {
+    // redux里面的用户数据
+    @connect(({user}) => ({
+      openId: user.openId
+    }))
+    class WithShare extends Component {
+      async componentWillMount() {
+        wx.showShareMenu({
+          success(res) {
+            console.log('success showShareMenu')
+          },
+          fail(res) {
+            console.log('fail showShareMenu')
+          },
+          complete(res) {
+            console.log('complete showShareMenu')
+          }
+        });
+
+        if (super.componentWillMount) {
+          super.componentWillMount();
+        }
+      }
+
+      // 点击分享的那一刻会进行调用
+      onShareAppMessage() {
+        const {openId} = this.props;
+
+        let {title, imageUrl, path = null, fromPath = defaultFromPath} = opts;
+
+        // 从继承的组件获取配置
+        if (this.$setSharePath && typeof this.$setSharePath === 'function') {
+          path = this.$setSharePath();
+        }
+
+        // 从继承的组件获取配置
+        if (this.$setShareTitle && typeof this.$setShareTitle === 'function') {
+          title = this.$setShareTitle();
+        }
+
+        // 从继承的组件获取配置
+        if (
+          this.$setShareImageUrl &&
+          typeof this.$setShareImageUrl === 'function'
+        ) {
+          imageUrl = this.$setShareImageUrl();
+        }
+
+        // 从继承的组件获取配置
+        if (
+          this.$setFromPath && typeof this.$setFromPath === 'function'
+        ) {
+          fromPath = this.$setFromPath();
+        }
+
+        if (!path) {
+          path = defalutPath;
+        }
+
+        // 每条分享都补充用户的分享id
+        // 如果path不带参数，分享出去后解析的params里面会带一个{''： ''}
+        const sharePath = `${path}userOpenId=${openId}&fromPath=${fromPath}`;
+        console.log('分享路径=>', sharePath);
+        return {
+          title: title || defalutTitle,
+          path: sharePath,
+          imageUrl: imageUrl || defaultImageUrl
+        };
+      }
+
+      render() {
+        return super.render();
+      }
+    }
+
+    return WithShare;
+  };
+}
+```
+
+
+
+**分包**
+
+目前小程序分包大小有以下限制：
+
+- 整个小程序所有分包大小不超过 8M
+- 单个分包/主包大小不能超过 2M
+
+使用分包
+
+*配置方法*
+
+假设支持分包的小程序目录结构如下：
+
+```text
+├── app.js
+├── app.json
+├── app.wxss
+├── packageA
+│   └── pages
+│       ├── cat
+│       └── dog
+├── packageB
+│   └── pages
+│       ├── apple
+│       └── banana
+├── pages
+│   ├── index
+│   └── logs
+└── utils
+```
+
+开发者通过在 app.json `subpackages` 字段声明项目分包结构：
+
+> 写成 subPackages 也支持。
+
+```json
+{
+  "pages":[
+    "pages/index",
+    "pages/logs"
+  ],
+  "subpackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/cat",
+        "pages/dog"
+      ]
+    }, {
+      "root": "packageB",
+      "name": "pack2",
+      "pages": [
+        "pages/apple",
+        "pages/banana"
+      ]
+    }
+  ]
+}
+```
+
+`subpackages` 中，每个分包的配置有以下几项：
+
+| 字段        | 类型        | 说明                                                         |
+| :---------- | :---------- | :----------------------------------------------------------- |
+| root        | String      | 分包根目录                                                   |
+| name        | String      | 分包别名，[分包预下载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/preload.html)时可以使用 |
+| pages       | StringArray | 分包页面路径，相对与分包根目录                               |
+| independent | Boolean     | 分包是否是[独立分包](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/independent.html) |
+
+*打包原则*
+
+- 声明 `subpackages` 后，将按 `subpackages` 配置路径进行打包，`subpackages` 配置路径外的目录将被打包到 app（主包） 中
+- app（主包）也可以有自己的 pages（即最外层的 pages 字段）
+- `subpackage` 的根目录不能是另外一个 `subpackage` 内的子目录
+- `tabBar` 页面必须在 app（主包）内
+
+*引用原则*
+
+- `packageA` 无法 require `packageB` JS 文件，但可以 require `app`、自己 package 内的 JS 文件
+- `packageA` 无法 import `packageB` 的 template，但可以 require `app`、自己 package 内的 template
+- `packageA` 无法使用 `packageB` 的资源，但可以使用 `app`、自己 package 内的资源
+
+*低版本兼容*
+
+由微信后台编译来处理旧版本客户端的兼容，后台会编译两份代码包，一份是分包后代码，另外一份是整包的兼容代码。 新客户端用分包，老客户端还是用的整包，完整包会把各个 `subpackage` 里面的路径放到 pages 中。
+
