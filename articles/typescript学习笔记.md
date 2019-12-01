@@ -1,7 +1,87 @@
 - 类型系统可在编译阶段发现大部分的错误；
 - 类型系统也是一个很直观的编程文档，可以查看任何函数或API的输入输出类型；
 
+使用前的准备
 
+`cnpm i typescript -g`  安装typescript的编译器tsp
+
+`tsc -h`
+
+`tsc --init` 创建`tsconfig.json` 文件
+
+编译某个文件： `tsc ts文件路径`即可
+
+： 是类型注解，类型注解在TypeScript中是记录函数或变量约束的简便方法。ts可以基于代码和类型注解做静态分析。
+
+ 也可以利用官网的`playground`来看编译后的结果
+
+类和接口的良好配合，决定了一个程序员的抽象水平。
+
+`npm install webpack webpack-cli webpack-dev-server`，安装	`webpack`，使用`webpack`作为构建工具写`typescript`
+
+### 基本类型
+
+#### ES6的6种基本类型
+
+String
+
+Number
+
+Boolean
+
+undefined
+
+null
+
+Symbol
+
+#### ES6的3种引用类型
+
+Array Function Object
+
+#### Typescript的基本数据类型
+
+String 
+
+Number 
+
+Boolean 
+
+undefined 
+
+null 
+
+Symbol
+
+Void 
+
+any ： 兼容js 
+
+Nerver
+
+元组：限定数组的类型和个数
+
+枚举
+
+高级类型
+
+#### Typescript的引用类型
+
+#### 类型注解
+
+作用： 相当于强类型语言中的类型shengming
+
+语法： （变量/函数）: type
+
+| 叫做联合类型，可以为多种类型    
+
+#### 枚举类型
+
+枚举： 一组有名字的常量集合。
+
+枚举成员的值是只读的。
+
+将程序中不容易记忆的硬编码提取出来，使用枚举，提高程序的可维护性
 
 ### typescript 接口  interface
 
