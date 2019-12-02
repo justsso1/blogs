@@ -570,3 +570,84 @@ function identity<T> (value: T): T {
 }
 ```
 
+调用方式： 
+
+```typescript
+identity("hahah"); //利用ts的类型推断
+```
+
+
+
+```typescript
+//使用泛型变量
+function loggingIdentity <T> (arr: T[]) : T[] {
+    console.log(arr.length)
+    return arr;
+}
+```
+
+
+
+#### 泛型类型
+
+泛型函数的类型与非泛型函数的类型没什么不同，只是有一个类型参数在最前面，像函数声明一样。用泛型来定义一个类型（泛型函数类型）
+
+```typescript
+function log<T>(value: T): T{
+    return value;
+}
+
+//使用泛型来定义一个类型
+type Log  = <T> (value: T) => T
+let myLog: Log = log
+```
+
+
+
+#### 泛型接口
+
+
+
+把泛型变量与函数的参数等同对待，是代表类型而不是值的类型
+
+#### 泛型约束
+
+```typescript
+//泛型约束
+ class Log2 <T> {
+     run(value: T){
+         console.log(value);
+        return value;
+     }
+ }
+
+ let log1 = new Log2<number> ();
+ log1.run(1);
+ log1.run('2');  //报错
+
+
+```
+
+
+
+```typescript
+interface Length {
+    length: number
+}
+
+function Log3<T extends Length>(value: T) : T {
+    console.log(value , value.length)
+    return value
+}
+
+```
+
+泛型的好处
+
+1. 函数和类可以轻松地支持多种类型，增强程序的扩展性
+
+2. 不必写多条函数重载，冗长的联合类型声明，增强代码可读性
+
+3. 灵活控制类型之间的约束
+
+   
