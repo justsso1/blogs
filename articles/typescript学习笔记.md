@@ -689,3 +689,8 @@ function Log3<T extends Length>(value: T) : T {
 
 ### TypeScript类型检查机制
 
+第一种，从右向左
+
+
+
+第二种，从左向右，上下文
