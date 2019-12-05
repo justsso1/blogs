@@ -588,16 +588,19 @@ function loggingIdentity <T> (arr: T[]) : T[] {
 
 
 
-#### 泛型类型
+#### 泛型类型。type
+
+泛型可以定义一个函数，也可以定义一个函数类型。
 
 泛型函数的类型与非泛型函数的类型没什么不同，只是有一个类型参数在最前面，像函数声明一样。用泛型来定义一个类型（泛型函数类型）
 
 ```typescript
+//泛型定义函数
 function log<T>(value: T): T{
     return value;
 }
 
-//使用泛型来定义一个类型
+//使用泛型来定义一个函数类型
 type Log  = <T> (value: T) => T
 let myLog: Log = log
 ```
@@ -606,29 +609,60 @@ let myLog: Log = log
 
 #### 泛型接口
 
+```typescript
+function getPeo<T>(value: T): T {
+    return value
+}
+
+
+interface People {
+    <T>(name: T):T
+}
+
+let o : People= getPeo
+
+//----------
+
+//约束了整个泛型所有的类型
+interface People2<T>{
+    <T>(name: T): T
+}
+//必须给泛型指定类型
+let o2: People2<string> = getPeo
+
+//或者额在泛型接口定义的时候指定一个默认值
+// interface People2<T=string>{
+//    <T>(name: T): T
+//}
+```
+
 
 
 把泛型变量与函数的参数等同对待，是代表类型而不是值的类型
 
-#### 泛型约束
+#### 泛型类
+
+给类设置泛型，可以约束住类的所有成员，除了静态成员
 
 ```typescript
 //泛型约束
  class Log2 <T> {
-     run(value: T){
+     run(value: T){  //如果设置成静态成员会报错
          console.log(value);
         return value;
      }
  }
 
- let log1 = new Log2<number> ();
+ let log1 = new Log2<number> (); //实例化类的时候显示传入T的类型
  log1.run(1);
- log1.run('2');  //报错
-
-
+ log1.run('2');  //报错，不是number类型
 ```
 
 
+
+#### 泛型约束
+
+泛型T继承接口，泛型就会受到一定的约束。
 
 ```typescript
 interface Length {
@@ -639,6 +673,7 @@ function Log3<T extends Length>(value: T) : T {
     console.log(value , value.length)
     return value
 }
+
 
 ```
 
@@ -651,3 +686,6 @@ function Log3<T extends Length>(value: T) : T {
 3. 灵活控制类型之间的约束
 
    
+
+### TypeScript类型检查机制
+
