@@ -821,9 +821,62 @@ mm = y;
 
 4种类型保护
 
-`typeof`类型保护
+1. 用户自定义的类型保护
 
-`instanceof`类型保护
+一旦检查过类型，就能在之后的每个额分支里清楚地知道某一个额变量的类型。
+
+类型保护就是一些表达式，它们会在运行时检查以确保在某个作用域里的类型。 要定义一个类型保护，我们只要简单地定义一个函数，它的返回值是一个 *类型谓词*
+
+```typescript
+function isFish(petL Fish | Bird) : pet is Fish {
+		return (<Fish>pet).swim !== undefined
+}
+```
+
+在这个例子里， `pet is Fish`就是类型谓词。 谓词为 `parameterName is Type`这种形式， `parameterName`必须是来自于当前函数签名里的一个参数名。
+
+每当使用一些变量调用 `isFish`时，TypeScript会将变量缩减为那个具体的类型，只要这个类型与变量的原始类型是兼容的。
+
+
+
+```typescript
+// 'swim' 和 'fly' 调用都没有问题了
+
+if (isFish(pet)) {
+    pet.swim();
+}
+else {
+    pet.fly();
+}
+```
+
+
+
+注意TypeScript不仅知道在 `if`分支里 `pet`是 `Fish`类型； 它还清楚在 `else`分支里，一定 *不是* `Fish`类型，一定是 `Bird`类型。
+
+
+
+2. `typeof`类型保护
+
+   TypeScript可以将`typeof`识别为一个类型保护，我们可以直接在代码里检查类型了。
+
+   ```typescript
+   function padLeft(value: string, padding: string | number) {
+   		if(typeof padding === "number"){
+         	return Array(padding + 1).join(" ")+ value;
+       }
+     if(typeof padding === "string") {
+       return padding + value;
+     }
+     throw new Error(`Expected string or numbere, got '${padding}'`);
+   }
+   ```
+
+   
+
+   这些* `typeof`类型保护*只有两种形式能被识别： `typeof v === "typename"`和 `typeof v !== "typename"`， `"typename"`必须是 `"number"`， `"string"`， `"boolean"`或 `"symbol"`。 但是TypeScript并不会阻止你与其它字符串比较，语言不会把那些表达式识别为类型保护。
+
+3. `instanceof`类型保护
 
 类型保护区块
 
@@ -831,17 +884,38 @@ mm = y;
 
 is 类型谓词
 
+#### 可以为null的类型
 
+TypeScript具有两种特殊的类型， `null`和 `undefined`，它们分别具有值null和undefined. 我们在[基础类型](./Basic Types.md)一节里已经做过简要说明。 默认情况下，类型检查器认为 `null`与 `undefined`可以赋值给任何类型。 `null`与 `undefined`是所有其它类型的一个有效值。 这也意味着，你阻止不了将它们赋值给其它类型，就算是你想要阻止这种情况也不行。
 
+`--strictNullChecks`标记可以解决此错误：当你声明一个变量时，它不会自动地包含 `null`或 `undefined`。 你可以使用联合类型明确的包含它们：
 
+```ts
+let s = "foo";
+s = null; // 错误, 'null'不能赋值给'string'
+let sn: string | null = "bar";
+sn = null; // 可以
 
+sn = undefined; // error, 'undefined'不能赋值给'string | null'
+```
 
+注意，按照JavaScript的语义，TypeScript会把 `null`和 `undefined`区别对待。 `string | null`， `string | undefined`和 `string | undefined | null`是不同的类型。
 
+##### 可选参数，和可选属性
 
+可选参数，和可选属性会默认加上 | undefined 的。 打开strictNullChecks 选项，则声明一个变量的时候，不能被赋值null 或 undefiend 类型断言手动去除 null或undefiend。语法是添加 `！` 后缀 
 
+#### 类型别名
 
+`type`关键字
 
+类型别名会给一个类型起个新名字。 类型别名有时和接口很像，但是可以作用于原始值，联合类型，元组以及其它任何你需要手写的类型。
 
+##### 接口 vs. 类型别名
+
+像我们提到的，类型别名可以像接口一样；然而，仍有一些细微差别。其一，接口创建了一个新的名字，可以在其它任何地方使用。 类型别名并不创建新名字—比如，错误信息就不会使用别名。 在下面的示例代码里，在编译器中将鼠标悬停在 interfaced上，显示它返回的是 Interface，但悬停在 aliased上时，显示的却是对象字面量类型。 
+
+另一个重要区别是类型别名不能被 extends和 implements（自己也不能 extends和 implements其它类型）。 因为 [软件中的对象应该对于扩展是开放的，但是对于修改是封闭的](https://en.wikipedia.org/wiki/Open/closed_principle)，你应该尽量去使用接口代替类型别名。另一方面，如果你无法通过接口来描述一个类型并且需要使用联合类型或元组类型，这时通常会使用类型别名。
 
 
 
