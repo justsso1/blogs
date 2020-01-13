@@ -368,7 +368,7 @@ index.scss
     }
     //循环生成order
     .#{$coconut-prefix}-col-xs-order-#{$i} {
-      order: $i;
+      sorder: $i;
     }
   }
 }
