@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /**
+     * 新建xmlhttprequest请求对象
+     * @type {XMLHttpRequest}
+     */
+    let xhr = new XMLHttpRequest()
+    /**
+     * 注册相关回调事件
+     */
+    xhr.onreadystatechange = function () {
+        switch (xhr.readyState) {
+            case 0:
+                console.log("请求未初始化")
+                break;
+            case 1:
+                console.log("opened")
+                break;
+            case 2:
+                console.log("HEADERS_RECEIVED")
+                break;
+            case 3:
+                console.log("loading")
+                break;
+            case 4: // done
+                if (this.status === 200 || this.status === 304) {
+                    console.log(this.responseText)
+                }
+                console.log("DONE")
+                break;
+        }
+    }
+    xhr.ontimeout = function (e) {
+    }
+    xhr.onerror = function (e) {
+    }
+    /**
+     * 打开请求
+     */
+    xhr.open("GET", URL, true) //创建一个Get请求，采用异步
+    /** * 4:配置参数 */
+    xhr.timeout = 3000 //设置xhr请求的超时时间
+    xhr.responseType = "text" //设置响应返回的数据格式
+    xhr.setRequestHeader("X_TEST","time.geekbang")
+    /** * 5:发送请求 */
+    xhr.send();
+</script>
+</body>
+</html>
