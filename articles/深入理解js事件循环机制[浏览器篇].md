@@ -1,4 +1,13 @@
+
+---
+2020.5.31
+---
+
 # 深入理解js事件循环机制[浏览器篇]
+
+事件循环是JavaScript语言在处理多任务时的一种机制，由于JavaScript是单线程，所以当有异步任务发生时，需要一种机制来协调任务触发，避免等待太久，就好比交通规则一样。JavaScript解析引擎结合所在的宿主环境（本文讲浏览器何NodeJS）
+产生了各自的事件循环机制。抛开环境谈运行，和抛开计量谈毒性一样，所以一定要区分清楚是在哪里运行，在浏览器还是NodeJS。
+浏览器中的事件循环由H5规范约定、由各浏览器厂商实现；而NodeJS中的事件循环由libuv自己实现的。
 
 Event Loop在浏览器下和Node js环境下各有一套规则。
 
@@ -20,7 +29,7 @@ js的任务分为 *同步* 和 *异步* 两种，它们的处理方式也不同�
 
 下图就是调用栈和任务队列的关系图
 
-![](/Users/ssojust/gitproject/blogs/imgs/event_loop/callstack.png)
+![](/imgs/event_loop/callstack.png)
 
 ### 事件循环
 
@@ -46,7 +55,7 @@ js的任务分为 *同步* 和 *异步* 两种，它们的处理方式也不同�
 
 关于`macrotask`和`microtask`的理解，光这样看会有些晦涩难懂，结合事件循坏的机制理解清晰很多，下面这张图可以说是介绍得非常清楚了。
 
-![](/Users/ssojust/gitproject/blogs/imgs/event_loop/event-loop.jpg)
+![](/imgs/event_loop/event-loop.jpg)
 
 总结起来，一次事件循环的步骤包括：
 
@@ -58,7 +67,7 @@ js的任务分为 *同步* 和 *异步* 两种，它们的处理方式也不同�
 
 ### mactotask & microtask的执行顺序
 
-![](/Users/ssojust/gitproject/blogs/imgs/event_loop/ma(i)crotask.png)
+![](/imgs/event_loop/ma(i)crotask.png)
 
 读完这么多干巴巴的概念介绍，还不如看一段代码感受下
 
@@ -80,7 +89,7 @@ console.log('end')
 
 打印台输出的log顺序是什么？结合上述的步骤分析，系不系so easy~
 
-![](/Users/ssojust/gitproject/blogs/imgs/event_loop/browser-deom1-excute-animate.gif)
+![](/imgs/event_loop/browser-deom1-excute-animate.gif)
 
 首先，全局代码（main()）压入调用栈执行，打印`start`；
 
@@ -124,7 +133,7 @@ console.log('end')
 
 运行结果截图如下:
 
-![](/Users/ssojust/gitproject/blogs/imgs/event_loop/requestAnimationFrame-run-result1.png)
+![](/imgs/event_loop/requestAnimationFrame-run-result1.png)
 
 可以看到，结果1中`requestAnimationFrame()`是在一次事件循环后执行，而在结果2，它的执行则是在三次事件循环结束后。
 
@@ -138,7 +147,7 @@ console.log('end')
    > b) 执行完当前microtask队列的所有任务
    > c) UI render
 
-3. 浏览器只保证requestAnimationFrame的回调在重绘之前执行，没有确定的时间，何时重绘由浏览器决定
+3. 浏览器只保证`requestAnimationFrame`的回调在重绘之前执行，没有确定的时间，何时重绘由浏览器决定
 
 [参考资料]
 
