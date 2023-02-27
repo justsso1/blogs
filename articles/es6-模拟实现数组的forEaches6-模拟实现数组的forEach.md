@@ -1,5 +1,8 @@
 ---
-2020.4.11
+date: 2020.4.11
+title: 模拟实现数组的forEach
+categories:
+- javascript
 ---
 
 Javascript底层源码应该是用c/c++写的，并不是JS代码，所以只能是尽可能的模拟
